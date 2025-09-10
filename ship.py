@@ -20,11 +20,11 @@ class Ship:
             self.x += self.settings.ship_speed
         if self.moving_left and self.rect.left > 0:
             self.x -= self.settings.ship_speed  
-        # if self.moving_up and self.rect.up < self.screen_rect.up:
-        #     self.rect.y -=1
-        # if self.moving_down and self.rect.down > 0:
-        #     self.rect.y +=1 
-        # self.rect.x = self.x       
+        if self.moving_up and self.rect.top > 0:
+            self.rect.y -=1
+        if self.moving_down and self.rect.bottom < self.screen_rect.bottom:
+            self.rect.y +=1 
+        self.rect.x = self.x       
        
         
 
