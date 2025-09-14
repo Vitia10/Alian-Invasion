@@ -17,8 +17,12 @@ class AlienInvasion:
             self.ship.update()
             self.bullets.update()
             self._update_screen()
+            for bullet in self.bullets.copy():
+                if bullet.rect.bottom <= 0:
+                    self.bullets.remove(bullet)
+                   
     def _check_events(self):
-        for event in pg.event.get():
+        for event in pg.event.get(): 
             if event.type == pg.QUIT:
                 sys.exit()
             elif event.type == pg.KEYDOWN:
@@ -36,7 +40,7 @@ class AlienInvasion:
             self.ship.moving_up = True 
         elif event.key == pg.K_DOWN:
             self.ship.moving_down = True 
-        elif event.key == pg.K_SPACE:
+        elif event.key == pg.K_x:
             self._fire_bullet()    
     def _check_keyup_events(self,event):
         if event.key == pg.K_RIGHT:
