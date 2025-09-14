@@ -7,17 +7,15 @@ class AlienInvasion:
     def __init__(self):
         pg.init()
         self.settings = Settings()
-
-
         self.screen = pg.display.set_mode((self.settings.screen_width,self.settings.screen_height))
         pg.display.set_caption('Alien Invasion')
         self.ship = Ship(self)
-        self.bullet = pg.sprite.Group()
+        self.bullets = pg.sprite.Group()
     def run_game(self):
         while True:
             self._check_events()
             self.ship.update()
-            self.bullet.update()
+            self.bullets.update()
             self._update_screen()
     def _check_events(self):
         for event in pg.event.get():
@@ -38,7 +36,7 @@ class AlienInvasion:
             self.ship.moving_up = True 
         elif event.key == pg.K_DOWN:
             self.ship.moving_down = True 
-        elif event.key == pg.K_x:
+        elif event.key == pg.K_SPACE:
             self._fire_bullet()    
     def _check_keyup_events(self,event):
         if event.key == pg.K_RIGHT:
@@ -51,15 +49,16 @@ class AlienInvasion:
             self.ship.moving_down = False 
     def _fire_bullet(self):
         new_bullet = Bullet(self)
-        self.bullet.add(new_bullet)              
+        self.bullets.add(new_bullet)              
 
                  
     def _update_screen(self):
         self.screen.blit(self.settings.bg, (0, 0))
         self.ship.blitme()
-        pg.display.flip()
-        for bullet in self.bullet.sprites():
+        
+        for bullet in self.bullets.sprites():
             bullet.bullet_draw()
+        pg.display.flip()    
 
 if __name__ == '__main__':
     ai = AlienInvasion()
